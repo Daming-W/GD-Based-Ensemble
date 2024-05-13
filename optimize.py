@@ -113,24 +113,4 @@ if __name__=='__main__':
             pbar.set_postfix({'loss':loss,'weights':weights})
             pbar.update(1) 
 
-    
-
-
-
-data_series = [0] * 1000086
-
-window_left,window_right = 0,49
-
-while window_right <= len(data_series):
-    # get data within the sliding window
-    temp_series = data_series[window_left,window_right]
-    # split
-    input_data = temp_series[:-1]
-    output_data = temp_series[-1]
-    # saving or writein to somewhere
-    with open('xxx.csv','w') as csv:
-        # do write input_data output_data in one row
-        pass
-    # sliding
-    window_left+=1
-    window_right+=1
+            
