@@ -1,0 +1,31 @@
+Namespace(raw_jsonl='/mnt/share_disk/LIV/datacomp/processed_data/880w_1088w_dedup_processed/v0.1/combined_stats.jsonl', eval_jsonl='/mnt/share_disk/LIV/datacomp/processed_data/evalset_processed/evalset_processed_stats.jsonl', csv_file='/root/GD-Based-Ensemble/data/stacking_data_60w.csv', batch_size=128, num_workers=64, model_save_path='/root/GD-Based-Ensemble/checkpoints/0514_1232.pth', logger_name='/root/GD-Based-Ensemble/logger/log_0514_1232', epochs=10)
+epoch : 1
+Train epoch loss: 0.09251797199249268, Train epoch accuracy: nan
+Eval epoch loss: 0.041172221805651985, Eval epoch accuracy: nan
+epoch : 2
+Train epoch loss: 0.021048840135335922, Train epoch accuracy: nan
+Eval epoch loss: 0.022264786964158217, Eval epoch accuracy: nan
+epoch : 3
+Train epoch loss: 0.013108990155160427, Train epoch accuracy: nan
+Eval epoch loss: 0.015667408674458663, Eval epoch accuracy: nan
+epoch : 4
+Train epoch loss: 0.009733520448207855, Train epoch accuracy: nan
+Eval epoch loss: 0.012235295266658067, Eval epoch accuracy: nan
+epoch : 5
+Train epoch loss: 0.007829944603145123, Train epoch accuracy: nan
+Eval epoch loss: 0.010115993243455888, Eval epoch accuracy: nan
+epoch : 6
+Train epoch loss: 0.006596375722438097, Train epoch accuracy: nan
+Eval epoch loss: 0.00870872498912116, Eval epoch accuracy: nan
+epoch : 7
+Train epoch loss: 0.005727103445678949, Train epoch accuracy: nan
+Eval epoch loss: 0.007654629971335331, Eval epoch accuracy: nan
+epoch : 8
+Train epoch loss: 0.005078871734440327, Train epoch accuracy: nan
+Eval epoch loss: 0.006841825399547815, Eval epoch accuracy: nan
+epoch : 9
+Train epoch loss: 0.0045754024758934975, Train epoch accuracy: nan
+Eval epoch loss: 0.006218002732594808, Eval epoch accuracy: nan
+epoch : 10
+Train epoch loss: 0.00417224271222949, Train epoch accuracy: nan
+Eval epoch loss: 0.005684860274940729, Eval epoch accuracy: nan

@@ -1,0 +1,2 @@
+Namespace(raw_jsonl='/mnt/share_disk/LIV/datacomp/processed_data/880w_1088w_dedup_processed/v0.1/combined_stats.jsonl', eval_jsonl='/mnt/share_disk/LIV/datacomp/processed_data/evalset_processed/evalset_processed_stats.jsonl', pickle_path='/root/GD-Based-Ensemble/data/stacking_data_60w.pkl', batch_size=128, num_workers=64, model_save_path='/root/GD-Based-Ensemble/checkpoints/0514_1200.pth', logger_name='/root/GD-Based-Ensemble/logger/log_0514_1200', epochs=10)
+epoch : 1

@@ -27,10 +27,8 @@ def init_df(raw_jsonl_path, stats_jsonl_path):
     
     print('start loading img path')
     with ThreadPoolExecutor() as executor:
-        futures = [executor.submit(process_line, line) for line in lines]
-        results = []
-        for future in tqdm(as_completed(futures), total=len(futures), desc="Processing Images"):
-            results.append(future.result())
+        results = list(tqdm(executor.map(process_line,lines)))
+
     df = pd.DataFrame(results, columns=['images'])
 
     if stats_jsonl_path:

@@ -112,5 +112,3 @@ if __name__=='__main__':
             pbar.set_description('optimizing')
             pbar.set_postfix({'loss':loss,'weights':weights})
             pbar.update(1) 
-
-            
