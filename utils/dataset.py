@@ -81,12 +81,9 @@ class StackingDataset(Dataset):
             file.seek(0) 
             for row in tqdm(csv.reader(file), total=total_lines, desc="Loading data"):
                 self.data.append([float(i) for i in row])
-        # for splitting train/val
-        if train:
-            self.data = self.data[:int(len(self.data) * split_ratio)]
-        else:
-            self.data = self.data[int(len(self.data) * split_ratio):]
-  
+        random.shuffle(self.data)
+
+    
     def __len__(self):
         return len(self.data)
   
