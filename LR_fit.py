@@ -71,8 +71,12 @@ class LogisticRegressionModel(nn.Module):
     
 
 #load data
-train_dataset = StackingDataset(csv_file=args.csv_file, train=True, split_ratio=0.8, transform=None)
-val_dataset = StackingDataset(csv_file=args.csv_file, train=False, split_ratio=0.8, transform=None)
+dataset = StackingDataset(csv_file=args.csv_file, transform=None)
+
+train_size = int(0.8 * len(dataset))
+valid_size = len(dataset) - train_size
+
+train_dataset, val_dataset = random_split(dataset, [train_size, valid_size])
 
 print(len(train_dataset))
 print(len(val_dataset))
