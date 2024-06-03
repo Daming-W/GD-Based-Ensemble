@@ -3,7 +3,7 @@ import argparse
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset, DataLoader,random_split
 import datetime
 
 from sklearn.linear_model import LogisticRegression
@@ -32,7 +32,7 @@ parser.add_argument(
     )
 parser.add_argument(
     "--csv_file", type=str, 
-    default='/root/GD-Based-Ensemble/data/stacking_data_60w.csv', 
+    default='/root/GD-Based-Ensemble/data/stacking_data_20w_clip3.csv', 
     help="data saved path"
     )
 parser.add_argument(
@@ -69,39 +69,43 @@ class LogisticRegressionModel(nn.Module):
         outputs = torch.sigmoid(self.linear(x))
         return outputs
     
+if __name__ == "__main__":
+    #load data
+    dataset = StackingDataset(csv_file=args.csv_file, transform=None)
 
-#load data
-dataset = StackingDataset(csv_file=args.csv_file, transform=None)
+    train_size = int(0.8 * len(dataset))
+    valid_size = len(dataset) - train_size
 
-train_size = int(0.8 * len(dataset))
-valid_size = len(dataset) - train_size
+    train_dataset, val_dataset = random_split(dataset, [train_size, valid_size])
 
-train_dataset, val_dataset = random_split(dataset, [train_size, valid_size])
+    print(len(train_dataset))
+    print(len(val_dataset))
 
-print(len(train_dataset))
-print(len(val_dataset))
+    train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True)
+    val_dataloader = DataLoader(val_dataset, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True)
 
-train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True)
-val_dataloader = DataLoader(val_dataset, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True)
+    model = LogisticRegressionModel(input_dim=3).to('cuda')
 
-model = LogisticRegressionModel(input_dim=10).to('cuda')
+    # with torch.no_grad():
+    #     model.linear.weight.fill_(1.0)
+    #     model.linear.bias.fill_(1.0) 
 
-criterion = torch.nn.BCELoss().to('cuda')
-optimizer = optim.SGD(model.parameters(), lr=0.01) 
+    criterion = torch.nn.BCELoss().to('cuda')
+    optimizer = optim.Adam(model.parameters(), lr=0.01) 
 
-# setup logger
-logger = Logger(args.logger_name,False)
-logger.append(args)
-print('finish setting logger')
+    # setup logger
+    logger = Logger(args.logger_name,False)
+    logger.append(args)
+    print('finish setting logger')
 
-# train and eval
-print('<<< start training >>>')
-for epoch in range(args.epochs):
-    print(f'<<< epoch {epoch+1} >>>')
-    logger.append(f'epoch : {epoch+1}')
-    train_epoch(args, train_dataloader, model, criterion, optimizer, logger)
-    eval_epoch(args, val_dataloader, model, criterion, logger)
+    # train and eval
+    print('<<< start training >>>')
+    for epoch in range(args.epochs):
+        print(f'<<< epoch {epoch+1} >>>')
+        logger.append(f'epoch : {epoch+1}')
+        train_epoch(args, train_dataloader, model, criterion, optimizer, logger)
+        eval_epoch(args, val_dataloader, model, criterion, logger)
 
-torch.save({
-    'model_state_dict': model.state_dict()
-}, args.model_save_path)
+    torch.save({
+        'model_state_dict': model.state_dict()
+    }, args.model_save_path)
